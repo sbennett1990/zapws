@@ -1,5 +1,5 @@
-﻿/*
- * Copyright (c) 2019 Scott Bennett <scottb@fastmail.com>
+/*
+ * Copyright (c) 2019, 2020 Scott Bennett <scottb@fastmail.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -21,89 +21,76 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace zapws
+public class Program
 {
-    public class Program
-    {
-        private const string program = "zapws.exe";
+	private const string program = "zapws.exe";
 
-        /*
-         * TODO:
-         *  - use command line args library
-         *  - implement mode to delete white space from the file
-         *  - implement switch to show full file vs. only the affected lines
-         */
-        public static void Main(string[] args)
-        {
-            if (args.Length < 1)
-                Usage();
+	/*
+	 * TODO:
+	 *  - use my command line args library
+	 *  - implement mode to delete white space from the file
+	 *  - implement option to show full file vs. only the affected lines
+	 */
+	public static void Main(string[] args)
+	{
+		if (args.Length < 1) {
+			Usage();
+		}
 
-            var path = args[0];
+		var path = args[0];
 
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("invalid path or not a file");
-                Quit();
-            }
+		if (!File.Exists(path)) {
+			Console.WriteLine("invalid path or not a file");
+			Quit();
+		}
 
-            var file = new FileInfo(path);
+		var file = new FileInfo(path);
+		Print(file);
+	}
 
-            Print(file);
+	public static void Print(FileInfo file)
+	{
+		var stream = file.OpenRead();
+		using (var fileReader = new StreamReader(stream)) {
+			int lineno = 0;
+			string line;
+			while ((line = fileReader.ReadLine()) != null) {
+				lineno++;
+				var array = line.ToCharArray();
+				if (array.Length < 1) {
+					continue;
+				}
+				if (char.IsWhiteSpace(array[array.Length - 1])) {
+					for (int i = array.Length; i > 0; i--) {
+						if (!char.IsWhiteSpace(array[i - 1]))
+							break;
 
-            Console.WriteLine();
-        }
+						array[i - 1] = '*';
+					}
 
-        public static void Print(FileInfo file)
-        {
-            var stream = file.OpenRead();
-            using (var fileReader = new StreamReader(stream))
-            {
-                int lineno = 0;
-                string line;
-                while ((line = fileReader.ReadLine()) != null)
-                {
-                    lineno++;
-                    var reversed = line.Reverse().ToList();
-                    if (!char.IsWhiteSpace(reversed.First()))
-                    {
-                        //Console.WriteLine(line);
-                    }
-                    else
-                    {
-                        for (int i = 0; i < reversed.Count; i++)
-                        {
-                            if (!char.IsWhiteSpace(reversed[i]))
-                                break;
+					Console.Write("{0,4}  ", lineno);
+					Console.WriteLine(array);
+				}
+				else {
+					//Console.WriteLine(line);
+				}
+			}
+			fileReader.Close();
+		}
+	}
 
-                            reversed[i] = '*';
-                        }
-                        reversed.Reverse();
+	public static void Quit()
+	{
+		Environment.Exit(1);
+	}
 
-                        var output = reversed.ToArray();
-                        Console.Write("{0,4}  ", lineno);
-                        Console.WriteLine(output);
-                    }
-                }
+	/// <summary>
+	/// Print usage information to the console and terminate the app.
+	/// </summary>
+	public static void Usage()
+	{
+		Console.WriteLine($"usage: {program} filepath");
 
-                fileReader.Close();
-            }
-        }
-
-        public static void Quit()
-        {
-            Environment.Exit(1);
-        }
-
-        /// <summary>
-        /// Print usage information to the console and terminate the app.
-        /// </summary>
-        public static void Usage()
-        {
-            Console.WriteLine("usage:");
-            Console.WriteLine($"{program} filepath");
-            Console.WriteLine();
-
-            Environment.Exit(1);
-        }
-    }
+		Environment.Exit(1);
+	}
 }
