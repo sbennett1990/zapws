@@ -21,6 +21,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Display or remove trailing whitespace from a file.
+/// </summary>
 public class Program
 {
 	private const string program = "zapws.exe";
@@ -79,6 +82,9 @@ public class Program
 		}
 	}
 
+	/// <summary>
+	/// Exit program with exit status 1.
+	/// </summary>
 	public static void Quit()
 	{
 		Environment.Exit(1);
@@ -90,7 +96,6 @@ public class Program
 	public static void Usage()
 	{
 		Console.WriteLine($"usage: {program} filepath");
-
 		Environment.Exit(1);
 	}
 }
