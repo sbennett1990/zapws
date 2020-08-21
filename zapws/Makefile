@@ -13,7 +13,7 @@ FLAGS+=	-langversion:\"7.3\"
 FLAGS+=	-appconfig:${APPCONFIG}
 DFLAGS=	-debug -optimize-
 
-all:
+all: ${SRCS}
 	csc ${FLAGS} ${SRCS}
 
 debug:
