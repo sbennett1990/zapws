@@ -5,12 +5,12 @@ PROG=	zapws.exe
 SRCS=	zapws.cs
 
 MAIN=	Program
-APPCONFIG=
+APPCONFIG=	App.config
 DOCFILE=	zapws.doc
 
 FLAGS=	-nologo -main:${MAIN} -out:${PROG}
 FLAGS+=	-langversion:\"7.3\"
-#FLAGS+=	-appconfig:${APPCONFIG}
+FLAGS+=	-appconfig:${APPCONFIG}
 DFLAGS=	-debug -optimize-
 
 all:
