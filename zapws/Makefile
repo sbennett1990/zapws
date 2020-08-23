@@ -16,8 +16,13 @@ BINDIR=	bin
 # Which C# language version to compile with
 LANG=	7.3
 
-FLAGS=	-nologo -main:${MAIN} -out:${BINDIR}/${PROG}
+FLAGS=	-nologo -main:${MAIN}
 FLAGS+=	-langversion:\"${LANG}\"
+.ifmake debug
+FLAGS+=	-out:${BINDIR}/Debug/${PROG}
+.else
+FLAGS+=	-out:${BINDIR}/${PROG}
+.endif
 .if defined(APPCONFIG)
 FLAGS+=	-appconfig:${APPCONFIG}
 .endif
@@ -46,7 +51,7 @@ testobj:
 
 obj:
 .if !exists(${BINDIR})
-	mkdir ${BINDIR}
+	mkdir -p ${BINDIR}/Debug
 .endif
 
 clean:
