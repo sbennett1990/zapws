@@ -40,26 +40,26 @@ public class Program
 			Usage();
 		}
 
-		var path = args[0];
+		string path = args[0];
 
 		if (!File.Exists(path)) {
 			Console.WriteLine("invalid path or not a file");
 			Quit();
 		}
 
-		var file = new FileInfo(path);
+		FileInfo file = new FileInfo(path);
 		Print(file);
 	}
 
 	public static void Print(FileInfo file)
 	{
-		using (var stream = file.OpenRead())
-		using (var fileReader = new StreamReader(stream)) {
+		using (FileStream stream = file.OpenRead())
+		using (StreamReader fileReader = new StreamReader(stream)) {
 			int lineno = 0;
 			string line;
 			while ((line = fileReader.ReadLine()) != null) {
 				lineno++;
-				var array = line.ToCharArray();
+				char[] array = line.ToCharArray();
 				if (array.Length < 1) {
 					continue;
 				}
