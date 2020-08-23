@@ -53,7 +53,7 @@ public class Program
 
 	public static void Print(FileInfo file)
 	{
-		var stream = file.OpenRead();
+		using (var stream = file.OpenRead())
 		using (var fileReader = new StreamReader(stream)) {
 			int lineno = 0;
 			string line;
