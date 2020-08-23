@@ -61,4 +61,6 @@ obj:
 .endif
 
 clean:
-	rm -f ${PROG} ${DOCFILE} *.pdb
+	rm -rf ${BINDIR}
+	rm -f ${PROG} ${DOCFILE}
+	@mkdir -p ${BINDIR}/Debug
