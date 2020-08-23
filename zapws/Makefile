@@ -9,18 +9,19 @@ MAIN=	Program
 APPCONFIG=	App.config
 DOCFILE=	zapws.doc
 
-BIN=	bin
+SRCDIR= src
+BINDIR=	bin
 
 # Which C# language version to compile with
 LANG=	7.3
 
-FLAGS=	-nologo -main:${MAIN} -out:${BIN}/${PROG}
+FLAGS=	-nologo -main:${MAIN} -out:${BINDIR}/${PROG}
 FLAGS+=	-langversion:\"${LANG}\"
 FLAGS+=	-appconfig:${APPCONFIG}
 DFLAGS=	-debug -optimize-
 
 # Real location of the C# source files
-CS=	${SRCS:S,^,src/,g}
+CS=	${SRCS:S,^,$(SRCDIR)/,g}
 all:
 	csc ${FLAGS} ${CS} ${PROPS}
 
