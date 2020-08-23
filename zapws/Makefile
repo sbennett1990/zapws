@@ -2,7 +2,7 @@
 
 PROG=	zapws.exe
 
-SRCS=	zapws.cs
+SRCS=	src/zapws.cs
 SRCS+=	Properties/AssemblyInfo.cs
 
 MAIN=	Program
