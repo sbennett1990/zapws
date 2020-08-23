@@ -9,8 +9,13 @@ MAIN=	Program
 APPCONFIG=	App.config
 DOCFILE=	zapws.doc
 
-FLAGS=	-nologo -main:${MAIN} -out:${PROG}
-FLAGS+=	-langversion:\"7.3\"
+BIN=	bin
+
+# Which C# language version to compile with
+LANG=	7.3
+
+FLAGS=	-nologo -main:${MAIN} -out:${BIN}/${PROG}
+FLAGS+=	-langversion:\"${LANG}\"
 FLAGS+=	-appconfig:${APPCONFIG}
 DFLAGS=	-debug -optimize-
 
