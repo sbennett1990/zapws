@@ -33,7 +33,7 @@ DFLAGS=	-debug -optimize-
 # Real location of the C# source files
 CS=	${SRCS:S,^,$(SRCDIR)/,g}
 
-all: testobj
+all release: testobj
 	csc ${FLAGS} ${CS} ${PROPS}
 	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
 
