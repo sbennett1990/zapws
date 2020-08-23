@@ -25,17 +25,23 @@ DFLAGS=	-debug -optimize-
 
 # Real location of the C# source files
 CS=	${SRCS:S,^,$(SRCDIR)/,g}
-all:
+all: testobj
 	csc ${FLAGS} ${CS} ${PROPS}
 
-debug:
+debug: testobj
 	csc ${FLAGS} ${DFLAGS} ${CS} ${PROPS}
 
-doc:
+doc: testobj
 .if defined(DOCFILE)
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
 .else
 	@echo 'No DOCFILE defined, nothing to do'
+.endif
+
+testobj:
+.if !exists(${BINDIR})
+	@echo 'No output directory! Run `make obj` before proceeding'
+	@false
 .endif
 
 obj:
