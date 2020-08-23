@@ -18,7 +18,9 @@ LANG=	7.3
 
 FLAGS=	-nologo -main:${MAIN} -out:${BINDIR}/${PROG}
 FLAGS+=	-langversion:\"${LANG}\"
+.if defined(APPCONFIG)
 FLAGS+=	-appconfig:${APPCONFIG}
+.endif
 DFLAGS=	-debug -optimize-
 
 # Real location of the C# source files
