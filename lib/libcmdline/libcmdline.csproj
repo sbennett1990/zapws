@@ -1,13 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\lib\libcmdline\libcmdline.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>zapws</RootNamespace>
+    <RootNamespace>libcmdline</RootNamespace>
   </PropertyGroup>
 
 </Project>
