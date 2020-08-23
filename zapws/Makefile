@@ -11,6 +11,7 @@ DOCFILE=	zapws.doc
 
 SRCDIR= src
 BINDIR=	bin
+.poison empty (BINDIR)
 
 # Which C# language version to compile with
 LANG=	7.3
@@ -33,6 +34,11 @@ doc:
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
 .else
 	@echo 'No DOCFILE defined, nothing to do'
+.endif
+
+obj:
+.if !exists(${BINDIR})
+	mkdir ${BINDIR}
 .endif
 
 clean:
