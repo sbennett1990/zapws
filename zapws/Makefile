@@ -23,7 +23,11 @@ debug:
 	csc ${FLAGS} ${DFLAGS} ${CS} ${PROPS}
 
 doc:
-	csc -doc:${DOCFILE} ${SRCS}
+.if defined(DOCFILE)
+	csc ${FLAGS} -doc:${DOCFILE} ${CS}
+.else
+	@echo 'No DOCFILE defined, nothing to do'
+.endif
 
 clean:
 	rm -f ${PROG} ${DOCFILE} *.pdb
