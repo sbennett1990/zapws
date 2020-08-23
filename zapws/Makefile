@@ -16,6 +16,7 @@ BINDIR=	bin
 # Which C# language version to compile with
 LANG=	7.3
 
+# Set compiler flags
 FLAGS=	-nologo -main:${MAIN}
 FLAGS+=	-langversion:\"${LANG}\"
 .ifmake debug
@@ -30,6 +31,7 @@ DFLAGS=	-debug -optimize-
 
 # Real location of the C# source files
 CS=	${SRCS:S,^,$(SRCDIR)/,g}
+
 all: testobj
 	csc ${FLAGS} ${CS} ${PROPS}
 
