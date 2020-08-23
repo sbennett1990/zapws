@@ -2,8 +2,8 @@
 
 PROG=	zapws.exe
 
-SRCS=	src/zapws.cs
-SRCS+=	Properties/AssemblyInfo.cs
+SRCS=	zapws.cs
+PROPS=	Properties/AssemblyInfo.cs
 
 MAIN=	Program
 APPCONFIG=	App.config
@@ -14,11 +14,13 @@ FLAGS+=	-langversion:\"7.3\"
 FLAGS+=	-appconfig:${APPCONFIG}
 DFLAGS=	-debug -optimize-
 
-all: ${SRCS}
-	csc ${FLAGS} ${SRCS}
+# Real location of the C# source files
+CS=	${SRCS:S,^,src/,g}
+all:
+	csc ${FLAGS} ${CS} ${PROPS}
 
 debug:
-	csc ${FLAGS} ${DFLAGS} ${SRCS}
+	csc ${FLAGS} ${DFLAGS} ${CS} ${PROPS}
 
 doc:
 	csc -doc:${DOCFILE} ${SRCS}
