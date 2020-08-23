@@ -17,13 +17,14 @@ BINDIR=	bin
 LANG=	7.3
 
 # Set compiler flags
-FLAGS=	-nologo -main:${MAIN}
-FLAGS+=	-langversion:\"${LANG}\"
 .ifmake debug
-FLAGS+=	-out:${BINDIR}/Debug/${PROG}
+OUT=	${BINDIR}/Debug/${PROG}
 .else
-FLAGS+=	-out:${BINDIR}/${PROG}
+OUT=	${BINDIR}/${PROG}
 .endif
+
+FLAGS=	-nologo -main:${MAIN} -out:${OUT}
+FLAGS+=	-langversion:\"${LANG}\"
 .if defined(APPCONFIG)
 FLAGS+=	-appconfig:${APPCONFIG}
 .endif
@@ -34,13 +35,16 @@ CS=	${SRCS:S,^,$(SRCDIR)/,g}
 
 all: testobj
 	csc ${FLAGS} ${CS} ${PROPS}
+	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
 
 debug: testobj
 	csc ${FLAGS} ${DFLAGS} ${CS} ${PROPS}
+	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
 
 doc: testobj
 .if defined(DOCFILE)
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
+	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
 .else
 	@echo 'No DOCFILE defined, nothing to do'
 .endif
