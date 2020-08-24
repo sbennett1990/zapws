@@ -15,9 +15,9 @@ LANG?=	7.0
 
 # Set compiler flags
 .ifmake debug
-OUT=	${BINDIR}/Debug/${LIB}
+OUT=	${BINDIR}/Debug/${LIB}.dll
 .else
-OUT=	${BINDIR}/${LIB}
+OUT=	${BINDIR}/${LIB}.dll
 .endif
 
 FLAGS=	-nologo -target:library -out:${OUT}
@@ -29,16 +29,16 @@ CS=	${SRCS:S,^,$(SRCDIR)/,g}
 
 all release: testobj
 	csc ${FLAGS} ${CS}
-	@echo '${LIB:R} -> ${.CURDIR}/${OUT}'
+	@echo '${LIB} -> ${.CURDIR}/${OUT}'
 
 debug: testobj
 	csc ${FLAGS} ${DFLAGS} ${CS}
-	@echo '${LIB:R} -> ${.CURDIR}/${OUT}'
+	@echo '${LIB} -> ${.CURDIR}/${OUT}'
 
 doc: testobj
 .if defined(DOCFILE)
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
-	@echo '${LIB:R} -> ${.CURDIR}/${OUT}'
+	@echo '${LIB} -> ${.CURDIR}/${OUT}'
 .else
 	@echo 'No DOCFILE defined, nothing to do'
 .endif
@@ -56,5 +56,5 @@ obj:
 
 clean:
 	rm -rf ${BINDIR}
-	rm -f ${LIB} ${DOCFILE}
+	rm -f ${LIB}.dll ${DOCFILE}
 	@mkdir -p ${BINDIR}/Debug
