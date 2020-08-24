@@ -47,11 +47,11 @@ DFLAGS=	-debug -define:DEBUG -optimize-
 # Real location of the C# source files
 CS=	${SRCS:S,^,$(SRCDIR)/,g}
 
-all release: testobj
+all release: testobj libs
 	csc ${FLAGS} ${CS} ${PROPS}
 	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
 
-debug: testobj
+debug: testobj libs
 	csc ${FLAGS} ${DFLAGS} ${CS} ${PROPS}
 	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
 
@@ -72,6 +72,23 @@ testobj:
 obj:
 .if !exists(${BINDIR})
 	mkdir -p ${BINDIR}/Debug
+.endif
+
+libs:
+.if defined(LIBS)
+	@echo '===> building libs'
+.  ifmake debug
+	cd ${.CURDIR}/lib && make obj && make debug
+.    for l in ${LIBS}
+	@cp ${.CURDIR}/lib/bin/Debug/${l}{.dll,.pdb} ${BINDIR}/Debug
+.    endfor
+.  else
+	cd ${.CURDIR}/lib && make obj && exec make
+.    for l in ${LIBS}
+	@cp ${.CURDIR}/lib/bin/${l}.dll ${BINDIR}
+.    endfor
+.  endif
+	@echo '===> done with libs'
 .endif
 
 clean:
