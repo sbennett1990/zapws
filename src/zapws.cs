@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using libcmdline;
 
 /// <summary>
 /// Display or remove trailing whitespace from a file.
@@ -40,10 +41,19 @@ public class Program
 			Usage();
 		}
 
-		string path = args[0];
+		string path = null;
 
-		if (!File.Exists(path)) {
-			Console.WriteLine("invalid path or not a file");
+		CommandLineProcessor argsProcessor = new CommandLineProcessor();
+		argsProcessor.RegisterOptionMatchHandler("f", requiresArgument: true, (sender, o) => {
+			path = o.Argument;
+		});
+		argsProcessor.RegisterOptionMatchHandler(CommandLineProcessor.InvalidOptionIdentifier, (sender, o) => {
+			Usage();
+		});
+		argsProcessor.ProcessCommandLineArgs(args);
+
+		if (string.IsNullOrEmpty(path) || !File.Exists(path)) {
+			Console.WriteLine("invalid path or not a file: {0}", path);
 			Quit();
 		}
 
