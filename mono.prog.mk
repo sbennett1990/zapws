@@ -27,6 +27,9 @@ FLAGS+=	-langversion:\"${LANG}\"
 .if defined(APPCONFIG)
 FLAGS+=	-appconfig:${APPCONFIG}
 .endif
+.if defined(CSSYMBOL)
+FLAGS+=	-define:${CSSYMBOL}
+.endif
 # Add in libraries
 .if defined(LIBS)
 .  ifmake debug
@@ -74,12 +77,12 @@ libs:
 .if defined(LIBS)
 	@echo '===> building libs'
 .  ifmake debug
-	cd ${.CURDIR}/lib && make obj && make debug
+	cd ${.CURDIR}/lib && make obj && make CSSYMBOL2=${CSSYMBOL} debug
 .    for l in ${LIBS}
 	@cp ${.CURDIR}/lib/bin/Debug/${l}{.dll,.pdb} ${BINDIR}/Debug
 .    endfor
 .  else
-	cd ${.CURDIR}/lib && make obj && exec make
+	cd ${.CURDIR}/lib && make obj && make CSSYMBOL2=${CSSYMBOL}
 .    for l in ${LIBS}
 	@cp ${.CURDIR}/lib/bin/${l}.dll ${BINDIR}
 .    endfor

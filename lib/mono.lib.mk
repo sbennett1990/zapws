@@ -22,6 +22,13 @@ OUT=	${BINDIR}/${LIB}.dll
 
 FLAGS=	-nologo -target:library -out:${OUT}
 FLAGS+=	-langversion:\"${LANG}\"
+.if defined(CSSYMBOL)
+FLAGS+= -define:${CSSYMBOL}
+.endif
+# This is only used for passing symbol(s) from the 'main' app to the libraries
+.if !empty(CSSYMBOL2)
+FLAGS+= -define:${CSSYMBOL2}
+.endif
 DFLAGS=	-debug -define:DEBUG -optimize-
 
 # Real location of the C# source files
