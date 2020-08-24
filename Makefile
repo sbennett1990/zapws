@@ -28,7 +28,7 @@ FLAGS+=	-langversion:\"${LANG}\"
 .if defined(APPCONFIG)
 FLAGS+=	-appconfig:${APPCONFIG}
 .endif
-DFLAGS=	-debug -optimize-
+DFLAGS=	-debug -define:DEBUG -optimize-
 
 # Real location of the C# source files
 CS=	${SRCS:S,^,$(SRCDIR)/,g}

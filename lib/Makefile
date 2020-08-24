@@ -23,7 +23,7 @@ OUT=	${BINDIR}/${LIB}
 
 FLAGS=	-nologo -target:library -out:${OUT}
 FLAGS+=	-langversion:\"${LANG}\"
-DFLAGS=	-debug -optimize-
+DFLAGS=	-debug -define:DEBUG -optimize-
 
 # Real location of the C# source files
 CS=	${SRCS:S,^,$(SRCDIR)/,g}
