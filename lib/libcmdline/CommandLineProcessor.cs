@@ -125,6 +125,23 @@ namespace libcmdline {
 		///
 		/// </summary>
 		/// <param name="option"></param>
+		/// <param name="handler"></param>
+		public void RegisterOptionMatchHandler(
+			Option option,
+			EventHandler<OptionEventArgs> handler
+		) {
+			if (handlers.ContainsKey(option)) {
+				handlers[option] = handler;
+			}
+			else {
+				handlers.Add(option, handler);
+			}
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="option"></param>
 		/// <param name="requiresArgument"></param>
 		/// <param name="handler"></param>
 		public void RegisterOptionMatchHandler(
