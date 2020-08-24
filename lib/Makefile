@@ -5,7 +5,7 @@ LIB=	libcmdline
 SRCS=	CommandLineProcessor.cs Option.cs OptionEventArgs.cs
 SRCS+=	Properties/AssemblyInfo.cs
 
-DOCFILE=	libcmdline.doc
+DOCFILE=	${LIB}.doc
 
 SRCDIR= ${LIB}
 BINDIR=	bin

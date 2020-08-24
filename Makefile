@@ -7,7 +7,7 @@ PROPS=	Properties/AssemblyInfo.cs
 
 MAIN=	Program
 APPCONFIG=	App.config
-DOCFILE=	zapws.doc
+DOCFILE=	${PROG}.doc
 
 SRCDIR= src
 BINDIR=	bin
