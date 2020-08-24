@@ -29,16 +29,16 @@ CS=	${SRCS:S,^,$(SRCDIR)/,g}
 
 all release: testobj
 	csc ${FLAGS} ${CS}
-	@echo '${LIB} -> ${.CURDIR}/${OUT}'
+	@echo '  ${LIB} -> ${.CURDIR}/${OUT}'
 
 debug: testobj
 	csc ${FLAGS} ${DFLAGS} ${CS}
-	@echo '${LIB} -> ${.CURDIR}/${OUT}'
+	@echo '  ${LIB} -> ${.CURDIR}/${OUT}'
 
 doc: testobj
 .if defined(DOCFILE)
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
-	@echo '${LIB} -> ${.CURDIR}/${OUT}'
+	@echo '  ${LIB} -> ${.CURDIR}/${OUT}'
 .else
 	@echo 'No DOCFILE defined, nothing to do'
 .endif
