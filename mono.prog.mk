@@ -1,6 +1,7 @@
 # Template for building Mono C# applications on OpenBSD
 
 PROPS?=
+DOCFILE?=
 SRCDIR?=	src
 BINDIR?=	bin
 
@@ -54,7 +55,7 @@ debug: testobj libs
 	@echo '  ${PROG} -> ${.CURDIR}/${OUT}'
 
 doc: testobj
-.if defined(DOCFILE)
+.if !empty(DOCFILE)
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
 	@echo '  ${PROG} -> ${.CURDIR}/${OUT}'
 .else
