@@ -1,6 +1,6 @@
 # Build zapws for Mono on OpenBSD
 
-PROG=	zapws.exe
+PROG=	zapws
 
 SRCS=	zapws.cs
 PROPS=	Properties/AssemblyInfo.cs

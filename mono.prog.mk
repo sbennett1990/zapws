@@ -19,9 +19,9 @@ LANG?=	7.0
 
 # Set compiler flags
 .ifmake debug
-OUT=	${BINDIR}/Debug/${PROG}
+OUT=	${BINDIR}/Debug/${PROG}.exe
 .else
-OUT=	${BINDIR}/${PROG}
+OUT=	${BINDIR}/${PROG}.exe
 .endif
 
 FLAGS=	-nologo -main:${MAIN} -out:${OUT}
@@ -47,16 +47,16 @@ CS=	${SRCS:S,^,$(SRCDIR)/,g}
 
 all release: testobj libs
 	csc ${FLAGS} ${CS} ${PROPS}
-	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
+	@echo '${PROG} -> ${.CURDIR}/${OUT}'
 
 debug: testobj libs
 	csc ${FLAGS} ${DFLAGS} ${CS} ${PROPS}
-	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
+	@echo '${PROG} -> ${.CURDIR}/${OUT}'
 
 doc: testobj
 .if defined(DOCFILE)
 	csc ${FLAGS} -doc:${DOCFILE} ${CS}
-	@echo '${PROG:R} -> ${.CURDIR}/${OUT}'
+	@echo '${PROG} -> ${.CURDIR}/${OUT}'
 .else
 	@echo 'No DOCFILE defined, nothing to do'
 .endif
@@ -91,5 +91,5 @@ libs:
 
 clean:
 	rm -rf ${BINDIR}
-	rm -f ${PROG} ${DOCFILE}
+	rm -f ${PROG}.exe ${DOCFILE}
 	@mkdir -p ${BINDIR}/Debug
