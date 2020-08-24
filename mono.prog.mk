@@ -5,7 +5,7 @@ SRCDIR?=	src
 BINDIR?=	bin
 
 # Enumerate libraries used
-LIBS?=
+#LIBS?=
 
 # Use major version 7.0 as a default
 LANG?=	7.0
@@ -14,6 +14,7 @@ LANG?=	7.0
 .poison empty (PROG)
 .poison empty (SRCS)
 .poison empty (MAIN)
+.poison empty (SRCDIR)
 .poison empty (BINDIR)
 
 # Set compiler flags
