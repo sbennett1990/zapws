@@ -105,7 +105,7 @@ public class Program
 	/// </summary>
 	public static void Usage()
 	{
-		Console.WriteLine($"usage: {program} -f filepath");  
+		Console.WriteLine($"usage: {program} -f filepath");
 		Environment.Exit(1);
 	}
 }
