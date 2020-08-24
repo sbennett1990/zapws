@@ -13,6 +13,9 @@ SRCDIR= src
 BINDIR=	bin
 .poison empty (BINDIR)
 
+# Enumerate libraries used
+LIBS=	libcmdline
+
 # Which C# language version to compile with
 LANG=	7.3
 
@@ -27,6 +30,17 @@ FLAGS=	-nologo -main:${MAIN} -out:${OUT}
 FLAGS+=	-langversion:\"${LANG}\"
 .if defined(APPCONFIG)
 FLAGS+=	-appconfig:${APPCONFIG}
+.endif
+# Add in libraries
+.if defined(LIBS)
+.  ifmake debug
+FLAGS+=	-lib:${BINDIR}/Debug
+.  else
+FLAGS+=	-lib:${BINDIR}
+.  endif
+.  for l in ${LIBS}
+FLAGS+=	-reference:${l}.dll
+.  endfor
 .endif
 DFLAGS=	-debug -define:DEBUG -optimize-
 
