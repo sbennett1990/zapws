@@ -5,9 +5,6 @@ DOCFILE?=
 SRCDIR?=	src
 BINDIR?=	bin
 
-# Enumerate libraries used
-#LIBS?=
-
 # Use major version 7.0 as a default
 LANG?=	7.0
 
