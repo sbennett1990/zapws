@@ -42,8 +42,12 @@ public class Program
 		}
 
 		string path = null;
+		bool aflag = false;
 
 		CommandLineProcessor argsProcessor = new CommandLineProcessor();
+		argsProcessor.RegisterOptionMatchHandler("a", requiresArgument: false, (sender, o) => {
+			aflag = true;
+		});
 		argsProcessor.RegisterOptionMatchHandler("f", requiresArgument: true, (sender, o) => {
 			path = o.Argument;
 		});
@@ -58,10 +62,10 @@ public class Program
 		}
 
 		FileInfo file = new FileInfo(path);
-		Print(file);
+		Print(file, printAll: aflag);
 	}
 
-	public static void Print(FileInfo file)
+	public static void Print(FileInfo file, bool printAll)
 	{
 		using (FileStream stream = file.OpenRead())
 		using (StreamReader fileReader = new StreamReader(stream)) {
@@ -71,6 +75,9 @@ public class Program
 				lineno++;
 				char[] array = line.ToCharArray();
 				if (array.Length < 1) {
+					if (printAll) {
+						Console.WriteLine();
+					}
 					continue;
 				}
 				if (char.IsWhiteSpace(array[array.Length - 1])) {
@@ -81,11 +88,13 @@ public class Program
 						array[i - 1] = '*';
 					}
 
-					Console.Write("{0,4}  ", lineno);
+					if (!printAll) {
+						Console.Write("{0,4}  ", lineno);
+					}
 					Console.WriteLine(array);
 				}
-				else {
-					//Console.WriteLine(line);
+				else if (printAll) {
+					Console.WriteLine(line);
 				}
 			}
 			fileReader.Close();
@@ -105,7 +114,7 @@ public class Program
 	/// </summary>
 	public static void Usage()
 	{
-		Console.WriteLine($"usage: {program} -f filepath");
+		Console.WriteLine($"usage: {program} [-a] -f filepath");
 		Environment.Exit(1);
 	}
 }
